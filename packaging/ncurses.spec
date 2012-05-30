@@ -7,6 +7,7 @@ License:    MIT
 URL:        http://invisible-island.net/ncurses/ncurses.html
 Source0:    http://ftp.gnu.org/pub/gnu/ncurses/ncurses-%{version}.tar.gz
 Source101:  ncurses-rpmlintrc
+Source1001: packaging/ncurses.manifest 
 Patch0:     01-use-d-reentrant.patch
 Patch1:     02-debian-backspace.patch
 Patch2:     03-linux-use-fsuid.patch
@@ -92,6 +93,7 @@ which will use ncurses.
 %patch5 -p1
 
 %build
+cp %{SOURCE1001} .
 
 %configure 
 
@@ -205,21 +207,26 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 %postun -n ncurses-libs -p /sbin/ldconfig
 
 %files
+%manifest ncurses.manifest
 %{_bindir}/[cirt]*
 
 
 %files -n  ncurses-libs
+%manifest ncurses.manifest
 %{_libdir}/lib*.so.*
 
 %files term -f terms.term
+%manifest ncurses.manifest
 
 %files base -f terms.base
+%manifest ncurses.manifest
 %dir %{_sysconfdir}/terminfo
 %{rootdatadir}/terminfo
 %{_datadir}/tabset
 %dir %{_datadir}/terminfo
 
 %files -n ncurses-devel
+%manifest ncurses.manifest
 %{_bindir}/ncurses*-config
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
