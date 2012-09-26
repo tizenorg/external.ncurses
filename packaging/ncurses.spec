@@ -111,7 +111,7 @@ export PKG_CONFIG_LIBDIR=%{_libdir}/pkgconfig
                 --disable-lp64 \
                 --with-chtype='long' \
                 --with-mmask-t='long' \
-                --disable-termcap \
+                --with-termlib=tinfo \
                 --with-default-terminfo-dir=/usr/share/terminfo \
                 --with-terminfo-dirs="/etc/terminfo:/lib/terminfo:/usr/share/terminfo" \
                 --with-ticlib
