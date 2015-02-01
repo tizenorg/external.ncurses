@@ -27,6 +27,7 @@ tic, a decompiler infocmp, clear, tput, tset, and a termcap conversion
 tool captoinfo.
 
 
+
 %package -n ncurses-libs
 Summary:    Ncurses libraries
 Group:      System/Libraries
@@ -209,18 +210,22 @@ cp -f COPYING.GPLv2 %{buildroot}/%{_datadir}/license/%{name}-libs
 %postun -n ncurses-libs -p /sbin/ldconfig
 
 %files
-%manifest ncurses.manifest
+%defattr(-,root,root,-)
 %{_bindir}/[cirt]*
 %{_datadir}/license/%{name}
+%manifest ncurses.manifest
 
 
 %files -n  ncurses-libs
+%defattr(-,root,root,-)
 %{_libdir}/lib*.so.*
 %{_datadir}/license/%{name}-libs
 
 %files term -f terms.term
+%defattr(-,root,root,-)
 
 %files base -f terms.base
+%defattr(-,root,root,-)
 %dir %{_sysconfdir}/terminfo
 %{rootdatadir}/terminfo
 %{_datadir}/tabset
@@ -228,6 +233,7 @@ cp -f COPYING.GPLv2 %{buildroot}/%{_datadir}/license/%{name}-libs
 %{_datadir}/license/%{name}-base
 
 %files -n ncurses-devel
+%defattr(-,root,root,-)
 %{_bindir}/ncurses*-config
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
