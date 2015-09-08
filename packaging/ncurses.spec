@@ -1,9 +1,10 @@
+#sbs-git:slp/pkgs/n/ncurses ncurses 5.7+20100313-2slp2+s1 b27eeeb3693466f3c0f5fb528155754f3858d14f
 Name:       ncurses
 Summary:    Ncurses support utilities
 Version:    5.7
 Release:    4
 Group:      System/Base
-License:    MIT
+License:    GPL-2.0+
 URL:        http://invisible-island.net/ncurses/ncurses.html
 Source0:    http://ftp.gnu.org/pub/gnu/ncurses/ncurses-%{version}.tar.gz
 Source101:  ncurses-rpmlintrc
@@ -199,27 +200,40 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/pkgconfig/{*_g,ncurses++*}.pc
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
+mkdir -p %{buildroot}/%{_datadir}/license
+cp -f COPYING.GPLv2 %{buildroot}/%{_datadir}/license/%{name}
+cp -f COPYING.GPLv2 %{buildroot}/%{_datadir}/license/%{name}-base
+cp -f COPYING.GPLv2 %{buildroot}/%{_datadir}/license/%{name}-libs
 
 %post -n ncurses-libs -p /sbin/ldconfig
 
 %postun -n ncurses-libs -p /sbin/ldconfig
 
 %files
+%defattr(-,root,root,-)
 %{_bindir}/[cirt]*
+%{_datadir}/license/%{name}
+%manifest ncurses.manifest
 
 
 %files -n  ncurses-libs
+%defattr(-,root,root,-)
 %{_libdir}/lib*.so.*
+%{_datadir}/license/%{name}-libs
 
 %files term -f terms.term
+%defattr(-,root,root,-)
 
 %files base -f terms.base
+%defattr(-,root,root,-)
 %dir %{_sysconfdir}/terminfo
 %{rootdatadir}/terminfo
 %{_datadir}/tabset
 %dir %{_datadir}/terminfo
+%{_datadir}/license/%{name}-base
 
 %files -n ncurses-devel
+%defattr(-,root,root,-)
 %{_bindir}/ncurses*-config
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
